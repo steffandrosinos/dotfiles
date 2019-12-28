@@ -1,3 +1,3 @@
-![alt text](https://zxqw.uk/assets/i3setup.png)
-# i3wmfiles
-Backup configs for my Arch Linux setup
+![alt text](https://steffanjones.dev/static/dotfiles.png)
+# dotfiles
+Files for .bashrc, i3, polybar, compton and discord
