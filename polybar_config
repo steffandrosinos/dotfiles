@@ -1,0 +1,181 @@
+[bar/mybar]
+bottom = true
+monitor = HDMI-1-1
+width = 100%
+height = 18
+
+background = #B0002233
+foreground = #ffffffff
+
+line-color = ${colors.background}
+line-size = 1
+
+spacing = 1
+padding-right = 0
+padding-left = 2
+module-margin = 1
+fixed-center = true
+
+font-3 = fontawesome:size=12;2
+font-1 = MaterialIcons:size=12;2
+font-2 = Termsynu:size=9:antialias=false;2
+font-0 = NotoSans-Regular:size=9;2
+
+;font-0 = NotoSans-Regular:size=8;0
+;font-1 = unifont:size=10;-3
+;font-2 = FontAwesome:size=8;-2
+;font-3 = NotoSans-Regular:size=8;-1
+;font-4 = MaterialIcons:size=15;-1
+;font-5 = Termsynu:size=8:antialias=false;0
+
+modules-left = i3 spotify
+modules-center = date
+modules-right = volume backlight wireless-network cpu battery powermenu
+
+[colors]
+background = #0C0C0C
+custom = #50E0FF
+
+[module/backlight]
+type = internal/backlight
+format = <ramp><label>
+label = %percentage%% 
+card = intel_backlight
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+[module/battery]
+type = internal/battery
+full-at = 98
+battery = BAT1
+adapter = ACAD
+poll-interval = 5
+format-charging = <label-charging>
+format-discharging = <label-discharging>
+format-full = <label-full>
+
+label-charging =  %percentage%%
+label-charging-foreground = #00FF00
+label-full =  %percentage%%
+label-full-foreground = #00FF00
+label-discharging =  %percentage%%
+label-discharging-foreground = #FFFFFF
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <ramp-coreload>
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #aaff77
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #aaff77
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #aaff77
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #aaff77
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #fba922
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #fba922
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #ff5555
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #ff5555
+
+[module/date]
+type = internal/date
+format-prefix = " "
+;label = %{F#fff}%date%%{F-}    %{F#fff}%time%%{F-}
+label = %{F#fff}%date%%{F-} %{F#fff}%time%%{F-{
+date = %d/%m/%Y
+date-alt = %A, %B %d, %Y
+time = %I:%M %p
+time-alt = ${self.time}
+
+[module/memory]
+type = internal/memory
+format = <label> <bar-used>
+label = RAM
+
+bar-used-width = 30
+bar-used-foreground-0 = #aaff77
+bar-used-foreground-1 = #aaff77
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
+
+[module/wireless-network]
+type = internal/network
+interface = wlp3s0
+interval = 1.0
+ping-interval = 10
+
+format-connected = <label-connected>
+label-connected =   %essid%
+;label-connected =  %{A1:wicd-client:}%essid%%{A}
+label-connected-foreground = ${colors.custom}
+label-disconnected =  
+label-disconnected-foreground = #FF0000
+
+[module/volume]
+type = internal/volume
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+format-volume = <label-volume>
+format-muted = <label-muted>
+format-muted-foreground = #00FF00
+label-volume = %percentage%%
+label-muted = --%
+
+[module/powermenu]
+type = custom/menu
+format-foreground = ${colors.custom}
+expand-right = false
+label-open = %{T1}%{T-}
+label-close = 
+menu-0-1 = 
+menu-0-1-exec = systemctl reboot
+menu-0-0 = 
+menu-0-0-exec = systemctl poweroff
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = "   "
+format-prefix-foreground = ${colors.custom}
+format = <label>
+exec = python ~/.config/polybar/spotify_status.py -f '{artist} - {song}'
+
+[module/i3]
+;strip-wsnumbers = true
+type = internal/i3
+format = <label-state> <label-mode>
+label-focused = %index%
+label-focused-foreground = ${colors.custom}
+label-focused-background = #010101
+label-focused-padding = 3
+label-unfocused = %index%
+label-unfocused-padding = 3
+label-visible = %index%
+label-visible-padding = 3
+label-urgent = %index%
+label-urgent-foreground = #000000
+label-urgent-padding = 3
